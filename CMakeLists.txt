@@ -1,21 +1,43 @@
-﻿# CMakeList.txt : CMake project for dplnk, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.25)
 
-# Enable Hot Reload for MSVC compilers if supported.
+project(
+	dplnk
+	VERSION 0.0.1
+	DESCRIPTION "A cross-platform deep linking library for c++"
+	LANGUAGES CXX
+)
+
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("dplnk")
+file(GLOB SOURCES "src/*.cpp" "src/*.hpp")
+file(GLOB HEADERS "include/${PROJECT_NAME}/*.h" "include/${PROJECT_NAME}/*.hpp")
 
-# Add source to this project's executable.
-add_executable (dplnk "src/dplnk.cpp" "include/dplnk.h")
+add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET dplnk PROPERTY CXX_STANDARD 20)
-endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE
+	INTERPROCEDURAL_OPTIMIZATION_PROFILE TRUE
+)
 
-# TODO: Add tests and install targets if needed.
+target_compile_definitions(${PROJECT_NAME} PUBLIC RMLUI_USE_CUSTOM_RTTI=1)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 23)
+
+target_include_directories(${PROJECT_NAME}
+PUBLIC
+	"include"
+
+PRIVATE
+	"include/${PROJECT_NAME}/"
+)
+
+include(GNUInstallDirs)
+
+install(TARGETS ${PROJECT_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
