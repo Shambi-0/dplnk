@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 #include <optional>
 #include <string>
 #include <map>
