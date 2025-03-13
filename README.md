@@ -2,6 +2,6 @@
 
 > dplnk is intended to be a quick cross-platform way of creating custom url schemes for games & applications.
 
-> [!IMPORTANT]
+> [!WARNING]
 > ### 🐲 Here be dragons!
 > Everything is currently untested, and does not have full cross-platform support, use at your own risk!
