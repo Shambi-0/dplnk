@@ -16,10 +16,11 @@ void dplnk::dplnk(const std::string& path, dplnk::options options) {
         for (const auto& [key, value] : *options.d) {
             const std::wstring wkey(key.begin(), key.end());
             const std::wstring wvalue(value.begin(), value.end());
-            
+
             cmdkey.setStringValue(wkey, wvalue);
         }
     }
 #else
     throw std::runtime_error("Unsupported platform!");
 #endif
+}
