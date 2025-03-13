@@ -785,7 +785,7 @@ namespace WinReg {
 		m_hKey = hKey;
 	}
 
-	inline RegResult RegKey::tryCreate(const HKEY hKeyParent, const std::wstring& subKey, const REGSAM desiredAccess) {
+	inline RegResult RegKey::tryCreate(HKEY hKeyParent, const std::wstring& subKey, REGSAM desiredAccess = KEY_READ | KEY_WRITE | KEY_WOW64_64KEY) {
 		constexpr DWORD kDefaultOptions = REG_OPTION_NON_VOLATILE;
 
 		return tryCreate(hKeyParent, subKey, desiredAccess, kDefaultOptions,
@@ -822,7 +822,7 @@ namespace WinReg {
 		return errorCode;
 	}
 
-	inline RegResult RegKey::tryOpen(const HKEY hKeyParent, const std::wstring& subKey, const REGSAM desiredAccess) noexcept {
+	inline RegResult RegKey::tryOpen(HKEY hKeyParent, const std::wstring& subKey, REGSAM desiredAccess = KEY_READ | KEY_WRITE | KEY_WOW64_64KEY) noexcept {
 		HKEY hKey = nullptr;
 		RegResult errorCode{ ::RegOpenKeyExW(
 			hKeyParent,
