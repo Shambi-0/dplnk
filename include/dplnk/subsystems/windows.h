@@ -1,4 +1,5 @@
 #pragma once
+#ifdef _WIN32
 
 #include <Windows.h>
 #include <crtdbg.h>
@@ -2414,3 +2415,5 @@ namespace WinReg {
 		return std::get<RegResult>(m_var);
 	}
 } // namespace WinReg
+
+#endif // _WIN32
