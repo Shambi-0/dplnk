@@ -4,4 +4,4 @@
 
 > [!WARNING]
 > 🐲 Here be dragons!
-> Everything is currently untested, and does not have full cross-platform support, use at your own risk!
+> - Everything is currently untested, and does not have full cross-platform support, use at your own risk!
