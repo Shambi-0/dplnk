@@ -9,6 +9,9 @@ project(
 
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
@@ -25,7 +28,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC RMLUI_USE_CUSTOM_RTTI=1)
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 23)
+# set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 23)
 
 target_include_directories(${PROJECT_NAME}
 PUBLIC
@@ -34,8 +37,6 @@ PUBLIC
 PRIVATE
 	"include/${PROJECT_NAME}/"
 )
-
-include(GNUInstallDirs)
 
 install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
